@@ -1,0 +1,100 @@
+version: '3'
+
+services:
+  back:
+    image: dockertaiga/back
+    container_name: taiga-back
+    restart: unless-stopped
+    depends_on: 
+      - db
+      - events
+    networks:
+      - default
+    volumes:
+      - ./data/media:/taiga-media
+      - ./conf/back:/taiga-conf
+    environment:
+      TAIGA_HOST: taiga.lan
+      TAIGA_SECRET: secret
+      DB_HOST: db
+      DB_NAME: taiga
+      DB_USER: postgres
+      DB_PASSWORD: password
+      RABBIT_HOST: rabbit
+      RABBIT_USER: taiga
+      RABBIT_PASSWORD: password
+      RABBIT_VHOST: taiga
+
+  front:
+    image: dockertaiga/front
+    container_name: taiga-front
+    restart: unless-stopped
+    networks:
+      - default
+    volumes:
+      - ./conf/front:/taiga-conf
+    environment:
+      TAIGA_HOST: taiga.lan
+
+  db:
+    image: postgres:alpine
+    container_name: taiga-db
+    restart: unless-stopped
+    networks:
+      - default
+    environment:
+      POSTGRES_DB: taiga
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  rabbit:
+    image: dockertaiga/rabbit
+    container_name: taiga-rabbit
+    restart: unless-stopped
+    networks:
+      - default
+    environment:
+      RABBIT_USER: taiga
+      RABBIT_PASSWORD: password
+      RABBIT_VHOST: taiga
+
+  events:
+    image: dockertaiga/events
+    container_name: taiga-events
+    restart: unless-stopped
+    depends_on:
+      - rabbit
+    networks:
+      - default
+    environment:
+      RABBIT_HOST: rabbit
+      RABBIT_VHOST: taiga
+      RABBIT_USER: taiga
+      RABBIT_PASSWORD: password
+
+  proxy:
+    image: dockertaiga/proxy
+    container_name: taiga-proxy
+    restart: unless-stopped
+    depends_on:
+      - back
+      - front
+      - events
+    networks:
+      - default
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./cert:/taiga-cert
+      - ./conf/proxy:/taiga-conf
+    environment:
+      TAIGA_HOSTNAME: taiga.lan
+      TAIGA_BACK_HOST: back
+      TAIGA_FRONT_HOST: front
+      EVENTS_HOST: events
+
+networks:
+  default:
