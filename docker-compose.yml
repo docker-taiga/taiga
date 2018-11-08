@@ -5,7 +5,7 @@ services:
     image: dockertaiga/back
     container_name: taiga-back
     restart: unless-stopped
-    depends_on: 
+    depends_on:
       - db
       - events
     networks:
@@ -73,6 +73,7 @@ services:
       RABBIT_VHOST: taiga
       RABBIT_USER: taiga
       RABBIT_PASSWORD: password
+      TAIGA_SECRET: secret
 
   proxy:
     image: dockertaiga/proxy

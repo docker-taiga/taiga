@@ -60,6 +60,7 @@ This is example Docker Compose file for running [Taiga](https://taiga.io) projec
 - **RABBIT_USER** - RabbitMQ username. Default is same as `rabbit::RABBIT_USER`.
 - **RABBIT_PASSWORD** - RabbitMQ password. Default is same as `rabbit::RABBIT_PASSWORD`.
 - **RABBIT_VHOST** - RabbitMQ virtual host name. Default is same as `rabbit::RABBIT_VHOST`.
+- **TAIGA_SECRET** - Secret for taiga-back. Default is same as `back::TAIGA_SECRET`.
 
 #### proxy
 - **TAIGA_HOSTNAME** - Taiga hostname. Default is same as `back::TAIGA_HOST`.
