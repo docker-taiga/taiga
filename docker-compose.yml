@@ -89,10 +89,11 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./cert:/taiga-cert
+      #- ./cert:/taiga-cert
       - ./conf/proxy:/taiga-conf
     environment:
       TAIGA_HOSTNAME: taiga.lan
+      ENABLE_SSL: no
       TAIGA_BACK_HOST: back
       TAIGA_FRONT_HOST: front
       EVENTS_HOST: events
