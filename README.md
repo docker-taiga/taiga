@@ -30,6 +30,7 @@ This is example Docker Compose file for running [Taiga](https://taiga.io) projec
 #### back
 - **TAIGA_HOST** - Taiga hostname to use with this taiga setup.
 - **TAIGA_SECRET** - Django secret key.
+- **TAIGA_SCHEME** - Taiga URL scheme (http/https). Default is 'http'.
 - **DB_HOST** - PostgeSQL hostname. Default is `db` service.
 - **DB_NAME** - PostgeSQL database name. Default is same as `db::POSTGRES_DB`.
 - **DB_USER** - PostgeSQL username. Default is same as `db::POSTGRES_USER`.
