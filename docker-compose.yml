@@ -95,7 +95,7 @@ services:
       - ./conf/proxy:/taiga-conf
     environment:
       TAIGA_HOSTNAME: taiga.lan
-      ENABLE_SSL: no
+      ENABLE_SSL: 'no'
       TAIGA_BACK_HOST: back
       TAIGA_FRONT_HOST: front
       EVENTS_HOST: events
