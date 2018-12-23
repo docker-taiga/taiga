@@ -13,18 +13,8 @@ services:
     volumes:
       - ./data/media:/taiga-media
       - ./conf/back:/taiga-conf
-    environment:
-      TAIGA_HOST: taiga.lan
-      TAIGA_SECRET: secret
-      TAIGA_SCHEME: http
-      DB_HOST: db
-      DB_NAME: taiga
-      DB_USER: postgres
-      DB_PASSWORD: password
-      RABBIT_HOST: rabbit
-      RABBIT_USER: taiga
-      RABBIT_PASSWORD: password
-      RABBIT_VHOST: taiga
+    env_file:
+      - variables.env
 
   front:
     image: dockertaiga/front
@@ -34,9 +24,8 @@ services:
       - default
     volumes:
       - ./conf/front:/taiga-conf
-    environment:
-      TAIGA_HOST: taiga.lan
-      TAIGA_SCHEME: http
+    env_file:
+      - variables.env
 
   db:
     image: postgres:alpine
@@ -44,10 +33,8 @@ services:
     restart: unless-stopped
     networks:
       - default
-    environment:
-      POSTGRES_DB: taiga
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+    env_file:
+      - variables.env
     volumes:
       - ./data/db:/var/lib/postgresql/data
 
@@ -57,10 +44,8 @@ services:
     restart: unless-stopped
     networks:
       - default
-    environment:
-      RABBIT_USER: taiga
-      RABBIT_PASSWORD: password
-      RABBIT_VHOST: taiga
+    env_file:
+      - variables.env
 
   events:
     image: dockertaiga/events
@@ -70,12 +55,8 @@ services:
       - rabbit
     networks:
       - default
-    environment:
-      RABBIT_HOST: rabbit
-      RABBIT_VHOST: taiga
-      RABBIT_USER: taiga
-      RABBIT_PASSWORD: password
-      TAIGA_SECRET: secret
+    env_file:
+      - variables.env
 
   proxy:
     image: dockertaiga/proxy
@@ -93,12 +74,8 @@ services:
     volumes:
       #- ./cert:/taiga-cert
       - ./conf/proxy:/taiga-conf
-    environment:
-      TAIGA_HOSTNAME: taiga.lan
-      ENABLE_SSL: 'no'
-      TAIGA_BACK_HOST: back
-      TAIGA_FRONT_HOST: front
-      EVENTS_HOST: events
+    env_file:
+      - variables.env
 
 networks:
   default:
