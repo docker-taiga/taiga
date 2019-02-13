@@ -28,34 +28,30 @@ The default username and password taiga creates is `admin` with password `123123
 [`docker pull dockertaiga/proxy`](https://hub.docker.com/r/dockertaiga/proxy/)
 
 ## Environment variables
-
+###
 - **TAIGA_HOST** - Taiga hostname to use with this taiga setup.
 - **TAIGA_SCHEME** - Taiga URL scheme (http/https). Default is 'http'.
 - **TAIGA_BACK_HOST** - Backend hostname. Default is `back` service.
 - **TAIGA_FRONT_HOST** - Frontend hostname. Default is `front` service.
 - **EVENTS_HOST** - Events hostname. Default is `events` service.
 - **TAIGA_SECRET** - Django secret key.
-
-
+###
 - **ENABLE_SSL** - Enable SSL termination (yes/no). Default is 'yes'.
 - **CERT_NAME** - Name of certificate file. Default is `fullchain.pem`.
 - **CERT_KEY** - Name of certificate key file. Default is `privkey.pem`.
-
-
+###
 - **POSTGRES_HOST** - PostgeSQL hostname. Default is `db` service.
 - **POSTGRES_DB** - Database name.
 - **POSTGRES_USER** - PostgreSQL username.
 - **POSTGRES_PASSWORD** - PostgreSQL password.
-*See [postgres image](https://hub.docker.com/_/postgres/) documentation for details.*
-
-
+###
 - **RABBIT_HOST** - RabbitMQ hostname. Default is `rabbit` service.
 - **RABBIT_USER** - RabbitMQ username. Default is same as `rabbit::RABBIT_USER`.
 - **RABBIT_PASSWORD** - RabbitMQ password. Default is same as `rabbit::RABBIT_PASSWORD`.
 - **RABBIT_VHOST** - RabbitMQ virtual host name. Default is same as `rabbit::RABBIT_VHOST`.
-
-
+###
 - **STARTUP_TIMEOUT** - Time to wait for databse to become ready before creating schema and importing default data. Default is 15s.
+
 
 ## Configuration
 By default configuration volume is `./conf` with config files `./conf/back/config.py` for backend, `./conf/front/config.json` for frontend and `./conf/proxy/nginx.conf` for reverse proxy. Generated config files are placed here on first run and can be modified to specify e.g. SMTP server configuration.
