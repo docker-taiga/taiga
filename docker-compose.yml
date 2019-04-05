@@ -28,7 +28,7 @@ services:
       - variables.env
 
   db:
-    image: postgres:alpine
+    image: postgres:11-alpine
     container_name: taiga-db
     restart: unless-stopped
     networks:
