@@ -36,7 +36,7 @@ The default username and password taiga creates is `admin` with password `123123
 - **EVENTS_HOST** - Events hostname. Default is `events` service.
 - **TAIGA_SECRET** - Django secret key.
 ###
-- **ENABLE_SSL** - Enable SSL termination (yes/no). Default is 'yes'.
+- **ENABLE_SSL** - Enable SSL termination (yes/no). Default is 'no'.
 - **CERT_NAME** - Name of certificate file. Default is `fullchain.pem`.
 - **CERT_KEY** - Name of certificate key file. Default is `privkey.pem`.
 ###
