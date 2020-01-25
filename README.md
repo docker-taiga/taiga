@@ -61,10 +61,6 @@ The default username and password taiga creates is `admin` with password `123123
 - `RABBIT_PASSWORD` - RabbitMQ password. Default is same as `rabbit::RABBIT_PASSWORD`.
 - `RABBIT_VHOST` - RabbitMQ virtual host name. Default is same as `rabbit::RABBIT_VHOST`.
 
----
-
-- `STARTUP_TIMEOUT` - Time to wait for databse to become ready before creating schema and importing default data. Default is 15s.
-
 ## Configuration
 
 By default configuration volume is `./conf` with config files `./conf/back/config.py` for backend, `./conf/front/config.json` for frontend and `./conf/proxy/nginx.conf` for reverse proxy. Generated config files are placed here on first run and can be modified to specify e.g. SMTP server configuration.
