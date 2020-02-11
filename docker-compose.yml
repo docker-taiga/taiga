@@ -46,6 +46,14 @@ services:
       - default
     env_file:
       - variables.env
+      
+  redis:
+    image: bitnami/redis:5.0
+    container_name: taiga-redis
+    networks:
+      - default
+    env_file:
+      - variables.env
 
   events:
     image: dockertaiga/events
