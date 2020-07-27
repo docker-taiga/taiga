@@ -50,6 +50,7 @@ services:
   redis:
     image: bitnami/redis:5.0
     container_name: taiga-redis
+    restart: unless-stopped
     networks:
       - default
     env_file:
