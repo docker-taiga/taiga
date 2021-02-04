@@ -2,7 +2,7 @@ version: '3'
 
 services:
   back:
-    image: dockertaiga/back:5.5.5
+    image: dockertaiga/back:6.0.1
     container_name: taiga-back
     restart: unless-stopped
     depends_on:
@@ -17,7 +17,7 @@ services:
       - variables.env
 
   front:
-    image: dockertaiga/front:5.5.5
+    image: dockertaiga/front:6.0.1
     container_name: taiga-front
     restart: unless-stopped
     networks:
@@ -26,9 +26,20 @@ services:
       - ./conf/front:/taiga-conf
     env_file:
       - variables.env
+      
+  events:
+    image: dockertaiga/events:6.0.0
+    container_name: taiga-events
+    restart: unless-stopped
+    depends_on:
+      - rabbit
+    networks:
+      - default
+    env_file:
+      - variables.env
 
   db:
-    image: postgres:11-alpine
+    image: postgres:12-alpine
     container_name: taiga-db
     restart: unless-stopped
     networks:
@@ -42,26 +53,6 @@ services:
     image: dockertaiga/rabbit
     container_name: taiga-rabbit
     restart: unless-stopped
-    networks:
-      - default
-    env_file:
-      - variables.env
-
-  redis:
-    image: bitnami/redis:5.0
-    container_name: taiga-redis
-    restart: unless-stopped
-    networks:
-      - default
-    env_file:
-      - variables.env
-
-  events:
-    image: dockertaiga/events
-    container_name: taiga-events
-    restart: unless-stopped
-    depends_on:
-      - rabbit
     networks:
       - default
     env_file:
