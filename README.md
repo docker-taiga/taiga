@@ -10,7 +10,7 @@ This is example Docker Compose file for running [Taiga](https://taiga.io) projec
 `git clone --depth=1 -b master https://github.com/docker-taiga/taiga.git`
 1) Adjust `TAIGA_HOST`, `TAIGA_SECRET`, `POSTGRES_PASSWORD` and `RABBIT_PASSWORD` in `variables.env` file.
 1) (Optional) If you want to enable SSL, change `TAIGA_SCHEME` and `TAIGA_PORT` variables accordingly, create `cert` folder and put ssl certificate and key inside. Default certificate and key filenames are `fullchain.pem` and `privkey.pem`. This can be changed by adding `CERT_NAME` and `CERT_KEY` environment variables to the service `proxy`. Alternatively, if you use certbot to acquire certificates, point volume `/taiga-cert` of the `proxy` service to the location of certificates, e.g. `/etc/letsencrypt/live/yourdomain.com`.
-1) `docker-compose up`
+1) `docker-compose --env-file variables.env up`
 
 The default username and password taiga creates is `admin` with password `123123`.
 
@@ -21,19 +21,14 @@ The default username and password taiga creates is `admin` with password `123123
 ## Individual images
 
 - **Taiga backend**
-<https://github.com/docker-taiga/back>
 [`docker pull dockertaiga/back`](https://hub.docker.com/r/dockertaiga/back/)
 - **Taiga frontend**
-<https://github.com/docker-taiga/front>
 [`docker pull dockertaiga/front`](https://hub.docker.com/r/dockertaiga/front/)
 - **RabbitMQ server**
-<https://github.com/docker-taiga/rabbit>
 [`docker pull dockertaiga/rabbit`](https://hub.docker.com/r/dockertaiga/rabbit/)
 - **Taiga events**
-<https://github.com/docker-taiga/events>
 [`docker pull dockertaiga/events`](https://hub.docker.com/r/dockertaiga/events/)
 - **Nginx reverse proxy**
-<https://github.com/docker-taiga/proxy>
 [`docker pull dockertaiga/proxy`](https://hub.docker.com/r/dockertaiga/proxy/)
 
 ## Environment variables
@@ -77,9 +72,9 @@ Volume `./data` contains postgresql data and taiga media files for persistence a
 
 ## Upgrading
 
-Before upgrading be sure to check taiga-back [changelog](https://github.com/taigaio/taiga-back/blob/master/CHANGELOG.md) for any breaking changes 
+Before upgrading be sure to check taiga-back [changelog](https://github.com/taigaio/taiga-back/blob/master/CHANGELOG.md) for any breaking changes
 and check for any modified configuration files in this repo to see what configs need to be adjusted accordignly.
 
-1) Update image versions in `docker-compose.yml` or pull from this repo.
-1) `docker-compose pull`
-1) `docker-compose up`
+1) Update the version in `variables.env` or pull from this repo.
+1) `docker-compose --env-file variables.env pull`
+1) `docker-compose --env-file variables.env up`

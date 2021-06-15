@@ -2,7 +2,7 @@ version: '3'
 
 services:
   back:
-    image: dockertaiga/back:6.0.1
+    image: dockertaiga/back:${VERSION}
     container_name: taiga-back
     restart: unless-stopped
     depends_on:
@@ -17,7 +17,7 @@ services:
       - variables.env
 
   front:
-    image: dockertaiga/front:6.0.1
+    image: dockertaiga/front:${VERSION}
     container_name: taiga-front
     restart: unless-stopped
     networks:
@@ -26,9 +26,9 @@ services:
       - ./conf/front:/taiga-conf
     env_file:
       - variables.env
-      
+
   events:
-    image: dockertaiga/events:6.0.0
+    image: dockertaiga/events:${VERSION}
     container_name: taiga-events
     restart: unless-stopped
     depends_on:
