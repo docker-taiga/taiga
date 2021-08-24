@@ -1,4 +1,4 @@
-VERSION=6.2.0
+VERSION=6.3.0
 
 TAIGA_BACK_REPO=https://github.com/kaleidos-ventures/taiga-back
 TAIGA_FRONT_REPO=https://github.com/kaleidos-ventures/taiga-front-dist

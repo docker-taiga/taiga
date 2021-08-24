@@ -462,7 +462,7 @@ MAX_AGE_CANCEL_ACCOUNT = 30 * 24 * 60 * 60  # 30 days in seconds
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         # Mainly used by taiga-front
-        "taiga.auth.backends.Token",
+        "taiga.auth.authentication.JWTAuthentication",
 
         # Mainly used for api debug.
         "taiga.auth.backends.Session",
