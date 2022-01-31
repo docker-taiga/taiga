@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.15
 
 ARG REPO
 ARG VERSION
@@ -20,7 +20,7 @@ ENV TAIGA_HOST=taiga.lan \
 
 WORKDIR /srv/taiga
 
-RUN apk --no-cache add python3 py3-pip gettext postgresql-dev libxslt-dev libxml2-dev libjpeg-turbo-dev zeromq-dev libffi-dev nginx \
+RUN apk --no-cache add python3 py3-pip gettext postgresql-dev libxslt-dev libxml2-dev libjpeg-turbo-dev zeromq-dev libffi-dev openblas-dev lapack-dev nginx \
     && apk add --no-cache --virtual .build-dependencies git g++ musl-dev linux-headers python3-dev binutils-doc autoconf flex bison zlib-dev libjpeg-turbo-dev freetype-dev ncurses-dev gdbm-dev rust cargo \
     && mkdir logs \
     && git clone --depth=1 -b $VERSION $REPO back && cd back \
@@ -37,7 +37,7 @@ RUN apk --no-cache add python3 py3-pip gettext postgresql-dev libxslt-dev libxml
     && find . -name '*po' -exec rm -r '{}' + \
     && rm /srv/taiga/back/settings/config.py.dev.example \
     && rm /srv/taiga/back/settings/config.py.prod.example \
-    && rm /etc/nginx/conf.d/default.conf
+    && rm /etc/nginx/http.d/default.conf
 
 WORKDIR /srv/taiga/back
 
@@ -48,7 +48,7 @@ RUN apk --no-cache add su-exec \
 EXPOSE 80
 
 COPY config.py /tmp/taiga-conf/
-COPY nginx.conf /etc/nginx/conf.d/
+COPY nginx.conf /etc/nginx/http.d/
 COPY waitfordb.py /
 COPY start.sh /
 
